@@ -2,7 +2,7 @@ package com.desafio.forohub.domain.topico.entity;
 
 import com.desafio.forohub.domain.respuesta.Respuesta;
 import com.desafio.forohub.domain.topico.dto.DatosRegistroTopico;
-import com.desafio.forohub.domain.usuario.DatosUsuarioId;
+import com.desafio.forohub.domain.usuario.DatosUsuario;
 import com.desafio.forohub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,7 +33,7 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
 
-    public Topico (DatosRegistroTopico dto, DatosUsuarioId dtoUsuario){
+    public Topico (DatosRegistroTopico dto, DatosUsuario dtoUsuario){
         this.titulo = dto.titulo();
         this.mensaje = dto.mensaje();
         this.fechaDeCreacion = LocalDateTime.now();

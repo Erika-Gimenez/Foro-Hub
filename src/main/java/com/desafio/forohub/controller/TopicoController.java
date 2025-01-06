@@ -1,8 +1,10 @@
 package com.desafio.forohub.controller;
 
+import com.desafio.forohub.domain.service.TopicoService;
 import com.desafio.forohub.domain.topico.dto.DatosRegistroTopico;
 import com.desafio.forohub.domain.topico.dto.DatosRespuestaTopico;
 import com.desafio.forohub.domain.topico.repository.ITopicoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +17,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/topicos")
 public class TopicoController {
 
+    private final TopicoService topicoService;
+
     @Autowired
-    private ITopicoRepository topicoRepository;
+    public TopicoController(TopicoService topicoService) {
+        this.topicoService = topicoService;
+    }
 
     @PostMapping
-    public ResponseEntity<DatosRespuestaTopico> registrarTopico(@RequestBody DatosRegistroTopico datosRegistroTopico){
-
-        return null;
+    public ResponseEntity<DatosRespuestaTopico> registrarTopico(@Valid @RequestBody DatosRegistroTopico datosRegistroTopico) {
+        DatosRespuestaTopico respuesta = topicoService.registrarTopico(datosRegistroTopico);
+        return ResponseEntity.ok(respuesta);
     }
 
 
