@@ -16,7 +16,7 @@ import java.util.List;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
-@Getter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -38,6 +38,30 @@ public class Usuario implements UserDetails {
         this.nombre = datos.nombre();
         this.correoElectronico = datos.correoElectronico();
         this.contrasenia = datos.contrasenia();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public List<Topico> getTopicos() {
+        return topicos;
+    }
+
+    public List<Respuesta> getRespuestas() {
+        return respuestas;
     }
 
     @Override
