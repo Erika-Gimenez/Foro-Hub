@@ -8,9 +8,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class AutenticacionUserService implements UserDetailsService {
 
-    @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private final IUsuarioRepository usuarioRepository;
 
+    @Autowired
+    public AutenticacionUserService(IUsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
     @Override
     public UserDetails loadUserByUsername(String correoElectronico) throws UsernameNotFoundException {
         return usuarioRepository.findByCorreoElectronico(correoElectronico)

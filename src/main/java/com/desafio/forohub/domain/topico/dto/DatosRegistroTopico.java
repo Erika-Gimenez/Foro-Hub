@@ -1,6 +1,5 @@
 package com.desafio.forohub.domain.topico.dto;
 
-import com.desafio.forohub.domain.usuario.DatosUsuarioId;
 import jakarta.validation.constraints.*;
 
 public record DatosRegistroTopico(

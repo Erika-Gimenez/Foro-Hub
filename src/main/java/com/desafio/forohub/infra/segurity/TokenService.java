@@ -27,7 +27,7 @@ public class TokenService {
 
             // Construir y firmar el token JWT
             return JWT.create()
-                    .withIssuer("miApp") // Identificador del emisor del token
+                    .withIssuer("foro hub") // Identificador del emisor del token
                     .withSubject(usuario.getCorreoElectronico()) // Usuario que se está autenticando
                     .withClaim("id", usuario.getId()) // Agregar un campo personalizado (ID del usuario)
                     .withExpiresAt(generarFechaExpiracion()) // Fecha de expiración del token
@@ -38,7 +38,7 @@ public class TokenService {
         }
     }
 
-    // Mtodo para extraer el subject (email) del token
+    // Mtodo para extraer el subject email del token
     public String getSubject(String token) {
         if (token == null) {
             throw new RuntimeException("El token no puede ser nulo");
@@ -49,11 +49,11 @@ public class TokenService {
 
             // Verificar y decodificar el token
             DecodedJWT verifier = JWT.require(algorithm)
-                    .withIssuer("miApp") // Validar que el emisor sea el esperado
+                    .withIssuer("foro hub") // Validar que el emisor sea el esperado
                     .build()
                     .verify(token); // Verificar el token
 
-            // Retornar el subject (email) contenido en el token
+            // Retornar el subject email contenido en el token
             return verifier.getSubject();
         } catch (JWTVerificationException exception) {
             // Manejo de excepción si ocurre un error durante la verificación del token

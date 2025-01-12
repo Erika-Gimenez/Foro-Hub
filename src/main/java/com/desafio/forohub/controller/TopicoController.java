@@ -1,11 +1,7 @@
 package com.desafio.forohub.controller;
 
 import com.desafio.forohub.domain.service.TopicoService;
-import com.desafio.forohub.domain.topico.dto.DatosActualizarTopico;
-import com.desafio.forohub.domain.topico.dto.DatosListadoTopico;
-import com.desafio.forohub.domain.topico.dto.DatosRegistroTopico;
-import com.desafio.forohub.domain.topico.dto.DatosRespuestaTopico;
-import com.desafio.forohub.domain.topico.entity.Topico;
+import com.desafio.forohub.domain.topico.dto.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +11,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/topicos")
@@ -28,9 +27,10 @@ public class TopicoController {
     }
 
     @PostMapping
-    public ResponseEntity<DatosRespuestaTopico> registrarTopico(@Valid @RequestBody DatosRegistroTopico datosRegistroTopico) {
+    public ResponseEntity<DatosRespuestaTopico> registrarTopico(@Valid @RequestBody DatosRegistroTopico datosRegistroTopico,  UriComponentsBuilder uriComponentsBuilder) {
         DatosRespuestaTopico respuesta = topicoService.registrarTopico(datosRegistroTopico);
-        return ResponseEntity.ok(respuesta);
+        URI uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(respuesta.id()).toUri();
+        return ResponseEntity.created(uri).body(respuesta);
     }
 
     @GetMapping
@@ -39,12 +39,26 @@ public class TopicoController {
         return ResponseEntity.ok(topicoService.listarTopicos(pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosDetallesRespuestaTopico> obtenerTopico(@PathVariable Long id) {
+        DatosDetallesRespuestaTopico respuestaTopico = topicoService.obtenerTopicoYRespuestaPorId(id);
+
+        return ResponseEntity.ok(respuestaTopico);
+    }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<DatosRespuestaTopico> actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
-        return topicoService.actualizarTopico(id, datosActualizarTopico);
+        DatosRespuestaTopico respuestaTopico = topicoService.actualizarTopico(id, datosActualizarTopico);
+
+        return ResponseEntity.ok(respuestaTopico);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarTopico(@PathVariable Long id) {
+            topicoService.eliminarTopico(id);
+            return ResponseEntity.noContent().build();
+
+    }
 
 }

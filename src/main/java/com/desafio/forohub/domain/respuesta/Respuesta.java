@@ -1,6 +1,9 @@
 package com.desafio.forohub.domain.respuesta;
 
+import com.desafio.forohub.domain.topico.dto.DatosActualizarTopico;
+import com.desafio.forohub.domain.topico.dto.DatosTopico;
 import com.desafio.forohub.domain.topico.entity.Topico;
+import com.desafio.forohub.domain.usuario.DatosUsuario;
 import com.desafio.forohub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,4 +38,19 @@ public class Respuesta {
     private Topico topico;
 
     private boolean solucion;
+
+    public Respuesta (DatosRegistroRespuesta datos, DatosTopico dtoTopico, DatosUsuario dtoUsuario){
+        this.mensaje = datos.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.autor = dtoUsuario.usuario();
+        this.topico = dtoTopico.topico();
+        this.solucion = datos.solucion();
+    }
+
+    public void actualizarInformacion(DatosActualizarRespuesta datos) {
+        if (datos.mensaje() != null) {
+            this.mensaje = datos.mensaje();
+        }
+    }
+
 }
