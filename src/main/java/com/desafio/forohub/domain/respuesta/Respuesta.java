@@ -1,6 +1,6 @@
 package com.desafio.forohub.domain.respuesta;
 
-import com.desafio.forohub.domain.topico.dto.DatosActualizarTopico;
+
 import com.desafio.forohub.domain.topico.dto.DatosTopico;
 import com.desafio.forohub.domain.topico.entity.Topico;
 import com.desafio.forohub.domain.usuario.DatosUsuario;
@@ -12,13 +12,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Table(name = "respuestas")
 @Entity(name = "Respuesta")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +36,18 @@ public class Respuesta {
 
     private boolean solucion;
 
+    public Respuesta() {
+    }
+
+    public Respuesta(Long id, String mensaje, LocalDateTime fechaCreacion, Usuario autor, Topico topico, boolean solucion) {
+        this.id = id;
+        this.mensaje = mensaje;
+        this.fechaCreacion = fechaCreacion;
+        this.autor = autor;
+        this.topico = topico;
+        this.solucion = solucion;
+    }
+
     public Respuesta (DatosRegistroRespuesta datos, DatosTopico dtoTopico, DatosUsuario dtoUsuario){
         this.mensaje = datos.mensaje();
         this.fechaCreacion = LocalDateTime.now();
@@ -53,4 +62,64 @@ public class Respuesta {
         }
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
+    }
+
+    public void setTopico(Topico topico) {
+        this.topico = topico;
+    }
+
+    public void setSolucion(boolean solucion) {
+        this.solucion = solucion;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public Topico getTopico() {
+        return topico;
+    }
+
+    public boolean isSolucion() {
+        return solucion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Respuesta respuesta = (Respuesta) o;
+        return Objects.equals(id, respuesta.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

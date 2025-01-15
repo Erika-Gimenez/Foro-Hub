@@ -10,15 +10,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
-
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Topico {
 
     @Id
@@ -34,6 +30,19 @@ public class Topico {
     private Usuario autor;
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
+
+    public Topico() {
+    }
+
+    public Topico(Long id, String titulo, String mensaje, LocalDateTime fechaDeCreacion, String curso, Usuario autor, List<Respuesta> respuestas) {
+        this.id = id;
+        this.titulo = titulo;
+        this.mensaje = mensaje;
+        this.fechaDeCreacion = fechaDeCreacion;
+        this.curso = curso;
+        this.autor = autor;
+        this.respuestas = respuestas;
+    }
 
     public Topico (DatosRegistroTopico dto, DatosUsuario dtoUsuario){
         this.titulo = dto.titulo();
@@ -53,6 +62,34 @@ public class Topico {
         if (datos.curso() != null) {
             this.curso=datos.curso();
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
+        this.fechaDeCreacion = fechaDeCreacion;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
+    }
+
+    public void setRespuestas(List<Respuesta> respuestas) {
+        this.respuestas = respuestas;
     }
 
     public Long getId() {
@@ -81,5 +118,18 @@ public class Topico {
 
     public List<Respuesta> getRespuestas() {
         return respuestas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topico topico = (Topico) o;
+        return Objects.equals(id, topico.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

@@ -1,7 +1,9 @@
 package com.desafio.forohub.infra.errores;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +34,12 @@ public class TratadorDeErroresControllers {
     @ExceptionHandler(ValidacionException.class)
     public ResponseEntity<String> tratarErrorDeValidacion(ValidacionException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    // Manejo de errores de credenciales incorrectas
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<String> manejarBadCredentials(BadCredentialsException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
     }
 
     // Clase para encapsular errores de validación

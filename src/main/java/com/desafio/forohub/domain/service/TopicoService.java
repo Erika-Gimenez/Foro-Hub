@@ -25,6 +25,7 @@ public class TopicoService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    //post
     public DatosRespuestaTopico registrarTopico(DatosRegistroTopico datos) {
         Usuario usuario = usuarioRepository.findById(datos.autorId())
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
@@ -37,6 +38,7 @@ public class TopicoService {
                         topico.getAutor().getCorreoElectronico()));
     }
 
+    //get list
     public Page<DatosListadoTopico> listarTopicos(Pageable pageable) {
         return topicoRepository.findAllOrderedByFecha(pageable).map(DatosListadoTopico::new);
     }

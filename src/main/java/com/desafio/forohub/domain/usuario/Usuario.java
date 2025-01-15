@@ -10,16 +10,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
-
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Usuario implements UserDetails {
 
     @Id
@@ -34,10 +30,46 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
 
+    public Usuario() {
+    }
+
+    public Usuario(Long id, String nombre, String correoElectronico, String contrasenia, List<Topico> topicos, List<Respuesta> respuestas) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correoElectronico = correoElectronico;
+        this.contrasenia = contrasenia;
+        this.topicos = topicos;
+        this.respuestas = respuestas;
+    }
+
     public Usuario(DatosRegistroUsuario datos) {
         this.nombre = datos.nombre();
         this.correoElectronico = datos.correoElectronico();
         this.contrasenia = datos.contrasenia();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public void setTopicos(List<Topico> topicos) {
+        this.topicos = topicos;
+    }
+
+    public void setRespuestas(List<Respuesta> respuestas) {
+        this.respuestas = respuestas;
     }
 
     public Long getId() {
@@ -62,6 +94,19 @@ public class Usuario implements UserDetails {
 
     public List<Respuesta> getRespuestas() {
         return respuestas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
     @Override

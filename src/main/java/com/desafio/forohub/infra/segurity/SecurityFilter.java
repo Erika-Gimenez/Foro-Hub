@@ -18,31 +18,38 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-    @Autowired
     private TokenService tokenService;
+    private IUsuarioRepository usuarioRepository;
 
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    public SecurityFilter(IUsuarioRepository usuarioRepository, TokenService tokenService) {
+        this.usuarioRepository = usuarioRepository;
+        this.tokenService = tokenService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
 
             var authHeader = request.getHeader("Authorization");
-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        System.out.println("Token en Authorization header: " + authHeader);
+            if (authHeader != null) {
                 var token = authHeader.replace("Bearer ", "");
-                var correoElectronico = tokenService.getSubject(token);
-                if (correoElectronico != null) {
-                    var usuario = usuarioRepository.findByCorreoElectronico(correoElectronico);
-                    if (usuario.isPresent()) {
-                        var authentication = new UsernamePasswordAuthenticationToken(
-                                usuario.get(), null, usuario.get().getAuthorities());
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                try {
+                    var correoElectronico = tokenService.getSubject(token);
+                    if (correoElectronico != null) {
+                        var usuario = usuarioRepository.findByCorreoElectronico(correoElectronico);
+                        if (usuario.isPresent()) {
+                            var authentication = new UsernamePasswordAuthenticationToken(
+                                    usuario.get(), null, usuario.get().getAuthorities());
+                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        }
                     }
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());;
                 }
             }
             filterChain.doFilter(request, response);
         }
-
 
 }
