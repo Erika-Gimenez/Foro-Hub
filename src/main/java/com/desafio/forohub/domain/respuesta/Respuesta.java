@@ -6,10 +6,7 @@ import com.desafio.forohub.domain.topico.entity.Topico;
 import com.desafio.forohub.domain.usuario.DatosUsuario;
 import com.desafio.forohub.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,7 +21,7 @@ public class Respuesta {
     @Column(nullable = false)//nullable indica si el mensaje puede ser nula o no en este caso esta en false lo que significa que el msj no puede ser nulo e
     private String mensaje;
 
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaDeCreacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id", nullable = false)//nullable indica si la clave foranea puede ser nula o no obviamente no queremos que las llaves foraneas sean nulas
@@ -36,13 +33,13 @@ public class Respuesta {
 
     private boolean solucion;
 
-    public Respuesta() {
+    public Respuesta(){
     }
 
     public Respuesta(Long id, String mensaje, LocalDateTime fechaCreacion, Usuario autor, Topico topico, boolean solucion) {
         this.id = id;
         this.mensaje = mensaje;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaDeCreacion = fechaCreacion;
         this.autor = autor;
         this.topico = topico;
         this.solucion = solucion;
@@ -50,10 +47,10 @@ public class Respuesta {
 
     public Respuesta (DatosRegistroRespuesta datos, DatosTopico dtoTopico, DatosUsuario dtoUsuario){
         this.mensaje = datos.mensaje();
-        this.fechaCreacion = LocalDateTime.now();
+        this.fechaDeCreacion = LocalDateTime.now();
         this.autor = dtoUsuario.usuario();
         this.topico = dtoTopico.topico();
-        this.solucion = datos.solucion();
+        this.solucion = true;
     }
 
     public void actualizarInformacion(DatosActualizarRespuesta datos) {
@@ -70,8 +67,8 @@ public class Respuesta {
         this.mensaje = mensaje;
     }
 
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
+        this.fechaDeCreacion = fechaDeCreacion;
     }
 
     public void setAutor(Usuario autor) {
@@ -94,8 +91,8 @@ public class Respuesta {
         return mensaje;
     }
 
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
+    public LocalDateTime getFechaDeCreacion() {
+        return fechaDeCreacion;
     }
 
     public Usuario getAutor() {

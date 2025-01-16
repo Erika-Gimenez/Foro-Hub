@@ -1,6 +1,6 @@
 package com.desafio.forohub.domain.topico.dto;
 
-import com.desafio.forohub.domain.respuesta.DatosDetalleRespuesta;
+import com.desafio.forohub.domain.respuesta.DatosDetalleRespuestaParaTopico;
 import com.desafio.forohub.domain.usuario.DatosUsuarioIdNombre;
 
 import java.time.LocalDateTime;
@@ -12,5 +12,5 @@ public record DatosDetallesRespuestaTopico(Long id,
                                            LocalDateTime fechaDeCreacion,
                                            String curso,
                                            DatosUsuarioIdNombre autor,
-                                           List<DatosDetalleRespuesta> respuestas) {
+                                           List<DatosDetalleRespuestaParaTopico> respuestas) {
 }

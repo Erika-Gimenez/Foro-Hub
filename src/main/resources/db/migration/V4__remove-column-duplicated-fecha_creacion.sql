@@ -1,0 +1,1 @@
+ALTER TABLE respuestas DROP COLUMN fecha_creacion;

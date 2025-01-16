@@ -26,7 +26,9 @@ public class RespuestaService {
     }
 
 
-    public DatosEnviadosClienteRespuesta crearRespuesta(DatosRegistroRespuesta datosRegistroRespuesta) {
+    //post
+    public DatosDeRespuestaClienteRespuesta crearRespuesta(DatosRegistroRespuesta datosRegistroRespuesta) {
+        System.out.println("Datos recibidos: " + datosRegistroRespuesta);
         Usuario autor = usuarioRepository.findById(datosRegistroRespuesta.autorId())
                 .orElseThrow(() -> new EntityNotFoundException("Autor no encontrado"));
 
@@ -34,31 +36,35 @@ public class RespuestaService {
                 .orElseThrow(() -> new EntityNotFoundException("Tópico no encontrado"));
 
         Respuesta respuesta = new Respuesta(datosRegistroRespuesta, new DatosTopico(topico), new DatosUsuario(autor));
+        System.out.println("Respuesta antes de guardar: " + respuesta); System.out.println("Fecha de creación: " + respuesta.getFechaDeCreacion());
         respuestaRepository.save(respuesta);
 
-        return new DatosEnviadosClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaCreacion(), new DatosUsuarioIdNombre(autor), new DatosTopicoIdTitulo(topico), respuesta.isSolucion());
+        return new DatosDeRespuestaClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaDeCreacion(), new DatosUsuarioIdNombre(autor), new DatosTopicoIdTitulo(topico), respuesta.isSolucion());
     }
 
-    public DatosEnviadosClienteRespuesta obtenerRespuestaPorId(Long id) {
+    //get
+    public DatosDeRespuestaClienteRespuesta obtenerRespuestaPorId(Long id) {
         Respuesta respuesta = respuestaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Respuesta no encontrada"));
-        return new DatosEnviadosClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaCreacion(),
+        return new DatosDeRespuestaClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaDeCreacion(),
                 new DatosUsuarioIdNombre(respuesta.getAutor()),
                 new DatosTopicoIdTitulo(respuesta.getTopico()),
                 respuesta.isSolucion());
     }
 
+    //put
     @Transactional
-    public DatosEnviadosClienteRespuesta actualizarRespuesta(Long id, DatosActualizarRespuesta datosActualizarRespuesta) {
+    public DatosDeRespuestaClienteRespuesta actualizarRespuesta(Long id, DatosActualizarRespuesta datosActualizarRespuesta) {
         Respuesta respuesta = respuestaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Respuesta no encontrada"));
         respuesta.actualizarInformacion(datosActualizarRespuesta);
-        return new DatosEnviadosClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaCreacion(),
+        return new DatosDeRespuestaClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaDeCreacion(),
                 new DatosUsuarioIdNombre(respuesta.getAutor()),
                 new DatosTopicoIdTitulo(respuesta.getTopico()),
                 respuesta.isSolucion());
     }
 
+    //delete
     @Transactional
     public void eliminarRespuesta(Long id) {
         if (!respuestaRepository.existsById(id)) {

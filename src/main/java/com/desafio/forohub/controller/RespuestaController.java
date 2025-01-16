@@ -1,11 +1,12 @@
 package com.desafio.forohub.controller;
 
 import com.desafio.forohub.domain.respuesta.DatosActualizarRespuesta;
-import com.desafio.forohub.domain.respuesta.DatosEnviadosClienteRespuesta;
+import com.desafio.forohub.domain.respuesta.DatosDeRespuestaClienteRespuesta;
 import com.desafio.forohub.domain.respuesta.DatosRegistroRespuesta;
 import com.desafio.forohub.domain.service.RespuestaService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ import java.net.URI;
 @RequestMapping("/respuestas")
 public class RespuestaController {
 
+    private static final Logger log = LoggerFactory.getLogger(RespuestaController.class);
+
     private final RespuestaService respuestaService;
 
     @Autowired
@@ -25,22 +28,23 @@ public class RespuestaController {
     }
 
     @PostMapping
-    public ResponseEntity<DatosEnviadosClienteRespuesta> registrarRespuesta(@Valid @RequestBody DatosRegistroRespuesta datosRegistroRespuesta, UriComponentsBuilder uriComponentsBuilder){
-        DatosEnviadosClienteRespuesta respuesta = respuestaService.crearRespuesta(datosRegistroRespuesta);
+    public ResponseEntity<DatosDeRespuestaClienteRespuesta> registrarRespuesta(@Valid @RequestBody DatosRegistroRespuesta datosRegistroRespuesta, UriComponentsBuilder uriComponentsBuilder){
+        DatosDeRespuestaClienteRespuesta respuesta = respuestaService.crearRespuesta(datosRegistroRespuesta);
+        log.info("Datos recibidos para registrar respuesta: {}", datosRegistroRespuesta);
         URI uri = uriComponentsBuilder.path("/respuestas/{id}").buildAndExpand(respuesta.id()).toUri();
         return ResponseEntity.created(uri).body(respuesta);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DatosEnviadosClienteRespuesta> obtenerRespuestaPorId(@PathVariable Long id) {
-        DatosEnviadosClienteRespuesta respuesta = respuestaService.obtenerRespuestaPorId(id);
+    public ResponseEntity<DatosDeRespuestaClienteRespuesta> obtenerRespuestaPorId(@PathVariable Long id) {
+        DatosDeRespuestaClienteRespuesta respuesta = respuestaService.obtenerRespuestaPorId(id);
         return ResponseEntity.ok(respuesta);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DatosEnviadosClienteRespuesta> actualizarRespuesta(@PathVariable Long id,
-                                                                             @Valid @RequestBody DatosActualizarRespuesta datosActualizarRespuesta) {
-        DatosEnviadosClienteRespuesta respuesta = respuestaService.actualizarRespuesta(id, datosActualizarRespuesta);
+    public ResponseEntity<DatosDeRespuestaClienteRespuesta> actualizarRespuesta(@PathVariable Long id,
+                                                                                @Valid @RequestBody DatosActualizarRespuesta datosActualizarRespuesta) {
+        DatosDeRespuestaClienteRespuesta respuesta = respuestaService.actualizarRespuesta(id, datosActualizarRespuesta);
         return ResponseEntity.ok(respuesta);
     }
 

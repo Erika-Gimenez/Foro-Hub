@@ -1,6 +1,6 @@
 package com.desafio.forohub.domain.service;
 
-import com.desafio.forohub.domain.respuesta.DatosDetalleRespuesta;
+import com.desafio.forohub.domain.respuesta.DatosDetalleRespuestaParaTopico;
 import com.desafio.forohub.domain.topico.dto.*;
 import com.desafio.forohub.domain.topico.entity.Topico;
 import com.desafio.forohub.domain.topico.repository.ITopicoRepository;
@@ -47,11 +47,11 @@ public class TopicoService {
         Topico topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tópico no encontrado con id " + id));
 
-        List<DatosDetalleRespuesta> respuestas = topico.getRespuestas().stream()
-                .map(respuesta -> new DatosDetalleRespuesta(
+        List<DatosDetalleRespuestaParaTopico> respuestas = topico.getRespuestas().stream()
+                .map(respuesta -> new DatosDetalleRespuestaParaTopico(
                         respuesta.getId(),
                         respuesta.getMensaje(),
-                        respuesta.getFechaCreacion(),
+                        respuesta.getFechaDeCreacion(),
                         new DatosUsuarioIdNombre(
                                 respuesta.getAutor().getId(),
                                 respuesta.getAutor().getNombre()
@@ -69,6 +69,7 @@ public class TopicoService {
         );
     }
 
+    //put
     @Transactional
     public DatosRespuestaTopico actualizarTopico(Long id, DatosActualizarTopico datosActualizarTopico) {
         Topico topico = topicoRepository.getReferenceById(id);
