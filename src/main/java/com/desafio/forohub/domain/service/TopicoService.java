@@ -4,6 +4,7 @@ import com.desafio.forohub.domain.respuesta.DatosDetalleRespuestaParaTopico;
 import com.desafio.forohub.domain.topico.dto.*;
 import com.desafio.forohub.domain.topico.entity.Topico;
 import com.desafio.forohub.domain.topico.repository.ITopicoRepository;
+import com.desafio.forohub.domain.topico.validaciones.IValidacionTopico;
 import com.desafio.forohub.domain.usuario.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,15 +19,18 @@ import java.util.List;
 public class TopicoService {
     private final ITopicoRepository topicoRepository;
     private final IUsuarioRepository usuarioRepository;
+    private final List<IValidacionTopico> validadores;
 
     @Autowired
-    public TopicoService(ITopicoRepository topicoRepository, IUsuarioRepository usuarioRepository) {
+    public TopicoService(ITopicoRepository topicoRepository, IUsuarioRepository usuarioRepository, List<IValidacionTopico> validadores) {
         this.topicoRepository = topicoRepository;
         this.usuarioRepository = usuarioRepository;
+        this.validadores = validadores;
     }
 
     //post
     public DatosRespuestaTopico registrarTopico(DatosRegistroTopico datos) {
+        validadores.forEach(v -> v.validar(datos));
         Usuario usuario = usuarioRepository.findById(datos.autorId())
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
         Topico topico = new Topico(datos,new DatosUsuario(usuario));

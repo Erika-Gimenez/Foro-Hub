@@ -37,8 +37,7 @@ public class TokenService {
                     .withIssuedAt(Date.from(Instant.now())) // Campo `issuedAt` en UTC .withExpiresAt(Date.from(generarFechaExpiracion())) // Fecha de expiración del token
                    .withExpiresAt(Date.from(generarFechaExpiracion()))
                    .sign(algorithm);
-            logTokenDetails(token);
-            System.out.println("Token generado: " + token);
+           // logTokenDetails(token);
             return token;
             // Firmar el token con el algoritmo definido
         } catch (JWTCreationException e) {
@@ -76,12 +75,12 @@ public class TokenService {
     // Mtdo para generar la fecha de expiración del token
     private Instant generarFechaExpiracion() {
         Instant expiration = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-05:00"));
-        System.out.println("Fecha de expiración generada: " + expiration);
+        //System.out.println("Fecha de expiración generada: " + expiration);
         // El token expira 2 horas después de la generación
         return expiration;
     }
 
-    private void logTokenDetails(String token) {
+   /* private void logTokenDetails(String token) {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
             Date issuedAt = decodedJWT.getIssuedAt();
@@ -91,7 +90,7 @@ public class TokenService {
         } catch (JWTDecodeException e) {
             System.err.println("Error al decodificar el token JWT: " + e.getMessage());
         }
-    }
+    }*/
 
 
 

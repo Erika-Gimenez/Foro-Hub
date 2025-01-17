@@ -4,6 +4,7 @@ import com.desafio.forohub.domain.respuesta.DatosActualizarRespuesta;
 import com.desafio.forohub.domain.respuesta.DatosDeRespuestaClienteRespuesta;
 import com.desafio.forohub.domain.respuesta.DatosRegistroRespuesta;
 import com.desafio.forohub.domain.service.RespuestaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +17,8 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/respuestas")
+@SecurityRequirement(name = "bearer-key")
 public class RespuestaController {
-
-    private static final Logger log = LoggerFactory.getLogger(RespuestaController.class);
 
     private final RespuestaService respuestaService;
 
@@ -30,7 +30,6 @@ public class RespuestaController {
     @PostMapping
     public ResponseEntity<DatosDeRespuestaClienteRespuesta> registrarRespuesta(@Valid @RequestBody DatosRegistroRespuesta datosRegistroRespuesta, UriComponentsBuilder uriComponentsBuilder){
         DatosDeRespuestaClienteRespuesta respuesta = respuestaService.crearRespuesta(datosRegistroRespuesta);
-        log.info("Datos recibidos para registrar respuesta: {}", datosRegistroRespuesta);
         URI uri = uriComponentsBuilder.path("/respuestas/{id}").buildAndExpand(respuesta.id()).toUri();
         return ResponseEntity.created(uri).body(respuesta);
     }

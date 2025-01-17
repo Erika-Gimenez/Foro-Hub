@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-@Table(name = "topicos")
+@Table(name = "topicos", uniqueConstraints = {@UniqueConstraint(columnNames = {"titulo", "mensaje"})})
 @Entity(name = "Topico")
 public class Topico {
 

@@ -2,6 +2,7 @@ package com.desafio.forohub.controller;
 
 import com.desafio.forohub.domain.service.TopicoService;
 import com.desafio.forohub.domain.topico.dto.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/topicos")
+@SecurityRequirement(name = "bearer-key")
 public class TopicoController {
 
     private final TopicoService topicoService;

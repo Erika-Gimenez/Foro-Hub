@@ -28,7 +28,6 @@ public class RespuestaService {
 
     //post
     public DatosDeRespuestaClienteRespuesta crearRespuesta(DatosRegistroRespuesta datosRegistroRespuesta) {
-        System.out.println("Datos recibidos: " + datosRegistroRespuesta);
         Usuario autor = usuarioRepository.findById(datosRegistroRespuesta.autorId())
                 .orElseThrow(() -> new EntityNotFoundException("Autor no encontrado"));
 
@@ -36,7 +35,6 @@ public class RespuestaService {
                 .orElseThrow(() -> new EntityNotFoundException("Tópico no encontrado"));
 
         Respuesta respuesta = new Respuesta(datosRegistroRespuesta, new DatosTopico(topico), new DatosUsuario(autor));
-        System.out.println("Respuesta antes de guardar: " + respuesta); System.out.println("Fecha de creación: " + respuesta.getFechaDeCreacion());
         respuestaRepository.save(respuesta);
 
         return new DatosDeRespuestaClienteRespuesta(respuesta.getId(), respuesta.getMensaje(), respuesta.getFechaDeCreacion(), new DatosUsuarioIdNombre(autor), new DatosTopicoIdTitulo(topico), respuesta.isSolucion());
