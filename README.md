@@ -1,3 +1,5 @@
+![banner foro hub apirest](https://github.com/user-attachments/assets/11da1dc2-fc62-44e9-aa3a-7fd37f32daf4)
+
 <p align="center"> 
   <img src="http://img.shields.io/static/v1?label=STATUS&message=EN%20DESARROLLO&color=ORANGE&style=for-the-badge" /> 
   <img src="https://img.shields.io/badge/language-Java-007396?style=for-the-badge"/> 
@@ -23,17 +25,17 @@ todo siguiendo las mejores prácticas del modelo REST.
 ### 📋 Pre-requisitos
 1. Java JDK 17 o superior  [Descarga](https://www.oracle.com/ar/java/technologies/downloads/#java17)
 2. MySQL 8.0: Descarga y configurar tu base de datos.
-3. Clona este repositorio en tu ordenador:
+3. Clona este repositorio:
 ````
 https://github.com/Erika-Gimenez/Foro-Hub.git
 
 ````
-- Navega hasta la carpeta del proyecto.
+Navega hasta la carpeta del proyecto.
 ````
 cd Foro-Hub
 
 ````
-4. Configurar los datos en tu application.properties.
+4. Configura los datos en tu application.properties.
 ````
 DATASOURCE_URL=jdbc:mysql://localhost:tu_base_de_datos
 DATASOURCE_USERNAME=tu_nombre_de_usuario
@@ -44,7 +46,7 @@ api.security.secret=tu_clave_secreta
 
 6. Acceder a la documentación Swagger en con el puerto que este configurado:
 
-[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui/index.html)
+   [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui/index.html)
 
 ## 🛠️ Pruebas
 
@@ -58,6 +60,26 @@ Ejemplo de Solicitud POST para Crear un Tópico
   "mensaje": "string",
   "curso": "string",
   "autorId": 9007199254740991
+}
+
+````
+
+Ejemplo de Solicitud POST para Registrar un Usuario
+````
+{
+  "nombre": "string",
+  "correoElectronico": "string",
+  "contrasenia": "string"
+}
+
+````
+
+Ejemplo de Solicitud POST para Crear una Respuesta
+````
+{
+  "mensaje": "string",
+  "topicoId": 1,
+  "autorId":1
 }
 
 ````
@@ -85,9 +107,6 @@ Ejemplo de Solicitud POST para Crear un Tópico
 * [Linkedin](https://www.linkedin.com/in/erika-gimenez/).
 * [GitHub](https://github.com/Erika-Gimenez).
 
-> [!NOTE]
->  Nuevas opciones en el menú.
->  Experimentar con una interfaz gráfica en el futuro para mejorar la experiencia del usuario.
 
 
 
