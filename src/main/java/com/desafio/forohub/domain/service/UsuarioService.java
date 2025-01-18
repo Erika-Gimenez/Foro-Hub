@@ -1,7 +1,7 @@
 package com.desafio.forohub.domain.service;
 
-import com.desafio.forohub.domain.usuario.DatosRegistroUsuario;
-import com.desafio.forohub.domain.usuario.DatosRespuestaUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosRegistroUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosRespuestaUsuario;
 import com.desafio.forohub.domain.usuario.IUsuarioRepository;
 import com.desafio.forohub.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;

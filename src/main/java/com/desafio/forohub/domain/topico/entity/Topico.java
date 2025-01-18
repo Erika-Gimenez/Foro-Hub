@@ -3,10 +3,9 @@ package com.desafio.forohub.domain.topico.entity;
 import com.desafio.forohub.domain.respuesta.Respuesta;
 import com.desafio.forohub.domain.topico.dto.DatosActualizarTopico;
 import com.desafio.forohub.domain.topico.dto.DatosRegistroTopico;
-import com.desafio.forohub.domain.usuario.DatosUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosUsuario;
 import com.desafio.forohub.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;

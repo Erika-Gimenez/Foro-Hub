@@ -1,4 +1,4 @@
-package com.desafio.forohub.domain.usuario;
+package com.desafio.forohub.domain.usuario.dto;
 
 import jakarta.validation.constraints.*;
 

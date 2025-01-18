@@ -2,11 +2,8 @@ package com.desafio.forohub.domain.usuario;
 
 import com.desafio.forohub.domain.respuesta.Respuesta;
 import com.desafio.forohub.domain.topico.entity.Topico;
+import com.desafio.forohub.domain.usuario.dto.DatosRegistroUsuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

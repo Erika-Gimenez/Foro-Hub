@@ -1,12 +1,15 @@
 package com.desafio.forohub.domain.service;
 
 import com.desafio.forohub.domain.respuesta.*;
+import com.desafio.forohub.domain.respuesta.dto.DatosActualizarRespuesta;
+import com.desafio.forohub.domain.respuesta.dto.DatosDeRespuestaClienteRespuesta;
+import com.desafio.forohub.domain.respuesta.dto.DatosRegistroRespuesta;
 import com.desafio.forohub.domain.topico.dto.DatosTopico;
 import com.desafio.forohub.domain.topico.dto.DatosTopicoIdTitulo;
 import com.desafio.forohub.domain.topico.entity.Topico;
 import com.desafio.forohub.domain.topico.repository.ITopicoRepository;
-import com.desafio.forohub.domain.usuario.DatosUsuario;
-import com.desafio.forohub.domain.usuario.DatosUsuarioIdNombre;
+import com.desafio.forohub.domain.usuario.dto.DatosUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosUsuarioIdNombre;
 import com.desafio.forohub.domain.usuario.IUsuarioRepository;
 import com.desafio.forohub.domain.usuario.Usuario;
 import jakarta.persistence.EntityNotFoundException;

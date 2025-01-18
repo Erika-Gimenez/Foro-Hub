@@ -1,6 +1,6 @@
 package com.desafio.forohub.domain.topico.dto;
 
-import com.desafio.forohub.domain.usuario.DatosRespuestaUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosRespuestaUsuario;
 
 import java.time.LocalDateTime;
 

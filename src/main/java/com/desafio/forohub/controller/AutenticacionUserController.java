@@ -1,9 +1,9 @@
 package com.desafio.forohub.controller;
 
 import com.desafio.forohub.domain.service.UsuarioService;
-import com.desafio.forohub.domain.usuario.DatosAutenticacionUsuario;
-import com.desafio.forohub.domain.usuario.DatosRegistroUsuario;
-import com.desafio.forohub.domain.usuario.DatosRespuestaUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosAutenticacionUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosRegistroUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosRespuestaUsuario;
 import com.desafio.forohub.domain.usuario.Usuario;
 import com.desafio.forohub.infra.segurity.DatosJWTToken;
 import com.desafio.forohub.infra.segurity.TokenService;

@@ -1,4 +1,4 @@
-package com.desafio.forohub.domain.respuesta;
+package com.desafio.forohub.domain.respuesta.dto;
 
 
 import jakarta.validation.constraints.NotBlank;

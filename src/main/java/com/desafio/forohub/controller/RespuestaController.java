@@ -1,13 +1,11 @@
 package com.desafio.forohub.controller;
 
-import com.desafio.forohub.domain.respuesta.DatosActualizarRespuesta;
-import com.desafio.forohub.domain.respuesta.DatosDeRespuestaClienteRespuesta;
-import com.desafio.forohub.domain.respuesta.DatosRegistroRespuesta;
+import com.desafio.forohub.domain.respuesta.dto.DatosActualizarRespuesta;
+import com.desafio.forohub.domain.respuesta.dto.DatosDeRespuestaClienteRespuesta;
+import com.desafio.forohub.domain.respuesta.dto.DatosRegistroRespuesta;
 import com.desafio.forohub.domain.service.RespuestaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

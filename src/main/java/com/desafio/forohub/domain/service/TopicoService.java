@@ -1,11 +1,14 @@
 package com.desafio.forohub.domain.service;
 
-import com.desafio.forohub.domain.respuesta.DatosDetalleRespuestaParaTopico;
+import com.desafio.forohub.domain.respuesta.dto.DatosDetalleRespuestaParaTopico;
 import com.desafio.forohub.domain.topico.dto.*;
 import com.desafio.forohub.domain.topico.entity.Topico;
 import com.desafio.forohub.domain.topico.repository.ITopicoRepository;
 import com.desafio.forohub.domain.topico.validaciones.IValidacionTopico;
 import com.desafio.forohub.domain.usuario.*;
+import com.desafio.forohub.domain.usuario.dto.DatosRespuestaUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosUsuario;
+import com.desafio.forohub.domain.usuario.dto.DatosUsuarioIdNombre;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
